@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="lib/onsenui/js/angular-onsenui.min.js"></script>
+
+  <script>
+    ons.bootstrap('myApp');
+  </script>
+  <script src="js/controllers/MainController.js"></script>
+  <script src="js/controllers/NewsController.js"></script>
+  <script src="js/controllers/NewsDetailController.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<ons-navigator var="navi">
+  <ons-page ng-controller="mainController as main">
+    <ons-toolbar>
+      <div class="center">トップ</div>
+    </ons-toolbar>
+
+    <p style="text-align: center">
+      <ons-button ng-click="navi.pushPage('news.html');">お知らせ</ons-button>
+    </p>
+  </ons-page>
+</ons-navigator>
+
+<ons-template id="news.html">
+  <ons-page ng-controller="newsController as news">
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>戻る</ons-back-button>
+      </div>
+      <div class="center">お知らせ</div>
+    </ons-toolbar>
+
+    <div class="progress" ng-if="news.isLoading">
+      <ons-progress-circular indeterminate></ons-progress-circular>
+    </div>
+
+    <ons-list>
+      <ons-list-item ng-repeat="newsDetail in news.news" modifier="tappable" ng-click="news.onSelectNewsDetail(newsDetail)">
+        {{newsDetail.title}}
+      </ons-list-item>
+    </ons-list>
+  </ons-page>
+</ons-template>
+
+<ons-template id="news_detail.html">
+  <ons-page ng-controller="newsDetailController as newsDetail">
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>戻る</ons-back-button>
+      </div>
+      <div class="center">{{newsDetail.newsDetail.title}}</div>
+    </ons-toolbar>
+
+    <div style="padding: 16px;">
+      <h1>{{newsDetail.newsDetail.title}}</h1>
+      <p style="text-align: right;">{{newsDetail.newsDetail.release_end_date | date:'yyyy/MM/dd'}}</p>
+      <p>{{newsDetail.newsDetail.description}}</p>
+    </div>
+  </ons-page>
+</ons-template>
+
+</body>
+</html>
