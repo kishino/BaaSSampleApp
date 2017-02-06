@@ -1,6 +1,10 @@
 (function () {
   angular.module('myApp').controller('mainController', MainController);
 
+  /**
+   * 主画面のController
+   * @constructor
+   */
   function MainController() {
 
     var vm = this;
@@ -10,6 +14,7 @@
     ///////////////////
 
     function onReady() {
+      // RKZClientはCordovaPluginのため、「ons.ready」で呼び出す必要がある
       setupRakuza();
     }
 
