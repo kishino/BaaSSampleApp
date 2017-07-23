@@ -15,6 +15,11 @@
   <script src="js/controllers/MainController.js"></script>
   <script src="js/controllers/NewsController.js"></script>
   <script src="js/controllers/NewsDetailController.js"></script>
+  <script src="js/controllers/ShopCategoriesController.js"></script>
+  <script src="js/controllers/ShopsController.js"></script>
+  <script src="js/controllers/ShopDetailController.js"></script>
+  <script src="js/controllers/ShopSearchController.js"></script>
+  <script src="js/services/BeaconService.js"></script>
 
   <link rel="stylesheet" href="components/loader.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
@@ -31,6 +36,12 @@
 
     <p style="text-align: center">
       <ons-button ng-click="navi.pushPage('news.html');">お知らせ</ons-button>
+    </p>
+    <p style="text-align: center">
+      <ons-button ng-click="navi.pushPage('shop_categories.html');">店舗</ons-button>
+    </p>
+    <p style="text-align: center">
+      <ons-button ng-click="navi.pushPage('shop_search.html');">店舗検索</ons-button>
     </p>
   </ons-page>
 </ons-navigator>
@@ -70,6 +81,110 @@
       <p style="text-align: right;">{{newsDetail.newsDetail.release_end_date | date:'yyyy/MM/dd'}}</p>
       <p>{{newsDetail.newsDetail.description}}</p>
     </div>
+  </ons-page>
+</ons-template>
+
+<ons-template id="shop_categories.html">
+  <ons-page ng-controller="shopCategoriesController as shopCategories">
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>戻る</ons-back-button>
+      </div>
+      <div class="center">店舗カテゴリ</div>
+    </ons-toolbar>
+
+    <div class="progress" ng-if="shopCategories.isLoading">
+      <ons-progress-circular indeterminate></ons-progress-circular>
+    </div>
+
+    <ons-list>
+      <ons-list-item ng-repeat="shopCategory in shopCategories.shopCategories" modifier="tappable" ng-click="shopCategories.onSelectShopCategory(shopCategory)">
+        {{shopCategory.name}}
+      </ons-list-item>
+    </ons-list>
+  </ons-page>
+</ons-template>
+
+<ons-template id="shops.html">
+  <ons-page ng-controller="shopsController as shops">
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>戻る</ons-back-button>
+      </div>
+      <div class="center">店舗</div>
+    </ons-toolbar>
+
+    <div class="progress" ng-if="shops.isLoading">
+      <ons-progress-circular indeterminate></ons-progress-circular>
+    </div>
+
+    <ons-list>
+      <ons-list-item ng-repeat="shop in shops.shops" modifier="tappable" ng-click="shops.onSelectShop(shop)">
+        {{shop.name}}
+      </ons-list-item>
+    </ons-list>
+  </ons-page>
+</ons-template>
+
+<ons-template id="shop_detail.html">
+  <ons-page ng-controller="shopDetailController as shopDetail">
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>戻る</ons-back-button>
+      </div>
+      <div class="center">{{shopDetail.shop.name}}</div>
+    </ons-toolbar>
+
+    <div style="padding: 16px;">
+      <h1>{{shopDetail.shop.name}}</h1>
+      <p style="text-align: right">{{shopDetail.shop.attributes.shop_category_name}}</p>
+      <p>
+        <img width="300" height="200" ng-src="{{shopDetail.shop.attributes.header_image_url}}"/>
+      </p>
+      <ons-row>
+        <ons-col width="120px">営業時間</ons-col>
+        <ons-col>{{shopDetail.shop.attributes.business_start_time}}～{{shopDetail.shop.attributes.business_end_time}}</ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col width="120px">定休日</ons-col>
+        <ons-col>{{shopDetail.shop.attributes.regular_holiday}}</ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col width="120px">住所</ons-col>
+        <ons-col>〒{{shopDetail.shop.attributes.postal_code}} {{shopDetail.shop.attributes.prefecture_name}}{{shopDetail.shop.attributes.address1}}{{shopDetail.shop.attributes.address2}}</ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col width="120px">電話番号</ons-col>
+        <ons-col>{{shopDetail.shop.attributes.tel_no}}</ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col width="120px">ホームページ</ons-col>
+        <ons-col>{{shopDetail.shop.attributes.homepage}}</ons-col>
+      </ons-row>
+      <ons-row>
+        <ons-col width="120px">営業内容他</ons-col>
+        <ons-col>{{shopDetail.shop.attributes.note}}</ons-col>
+      </ons-row>
+    </div>
+  </ons-page>
+</ons-template>
+
+<ons-template id="shop_search.html">
+  <ons-page ng-controller="shopSearchController as shopSearch" ons-destroy="shopSearch.onDestroy()">
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>戻る</ons-back-button>
+      </div>
+      <div class="center">店舗検索</div>
+    </ons-toolbar>
+
+    <p style="text-align: center" ng-show="shopSearch.isSearching">
+      検索中...
+    </p>
+
+    <p style="text-align: center">
+      <ons-button ng-click="shopSearch.onSearchToggle()">{{ !shopSearch.isSearching ? '検索開始！' : '検索中止' }}</ons-button>
+    </p>
   </ons-page>
 </ons-template>
 

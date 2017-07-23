@@ -25,7 +25,7 @@
       // 第一引数で指定されたテナントキーの値をもとに楽座のテナントを設定します
       RKZClient.setTenantKey(TENANT_KEY, function() {
         // 成功時の処理
-        alert('RKZClientクラスの初期化に成功しました。');
+        ons.notification.toast('RKZClientクラスの初期化に成功しました。', { timeout: 3000 });
         // ユーザーの登録
         registerUser().then(function (userAccessToken) {
           // プッシュ通知のセットアップ
@@ -46,7 +46,7 @@
         // ユーザーアクセストークンがなければ、新規でユーザーを作成
         var userData = {};
         RKZClient.registUser(userData, function (userData) {
-          alert(userData.user_access_token + "," + userData.user_no);
+          ons.notification.toast(userData.user_access_token + "," + userData.user_no, { timeout: 3000 });
 
           // ユーザーアクセストークンをローカルに保存する
           localStorage.setItem(USER_ACCESS_TOKEN_KEY, userData.user_access_token);
@@ -84,7 +84,7 @@
 
         // デバイストークンをBaaS@rakuzaに送信＆登録
         RKZClient.registPushDeviceToken(userAccessToken, data.registrationId, function (statusCode) {
-          alert('デバイストークンを登録しました。');
+          ons.notification.toast('デバイストークンを登録しました。', { timeout: 3000 });
         }, function (error) {
           alert(JSON.stringify(error, null, ' '));
         });
