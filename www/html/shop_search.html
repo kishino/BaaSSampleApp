@@ -1,0 +1,16 @@
+<ons-page ng-controller="ShopSearchController as vm" ons-destroy="vm.onDestroy()">
+  <ons-toolbar>
+    <div class="left">
+      <ons-back-button>戻る</ons-back-button>
+    </div>
+    <div class="center">店舗検索</div>
+  </ons-toolbar>
+
+  <p style="text-align: center" ng-show="vm.isSearching">
+    検索中...
+  </p>
+
+  <p style="text-align: center">
+    <ons-button ng-click="vm.onSearchToggle()">{{ !vm.isSearching ? '検索開始！' : '検索中止' }}</ons-button>
+  </p>
+</ons-page>

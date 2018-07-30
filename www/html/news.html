@@ -1,0 +1,18 @@
+<ons-page ng-controller="NewsController as vm">
+  <ons-toolbar>
+    <div class="left">
+      <ons-back-button>戻る</ons-back-button>
+    </div>
+    <div class="center">お知らせ</div>
+  </ons-toolbar>
+
+  <div class="progress" ng-if="vm.isLoading">
+    <ons-progress-circular indeterminate></ons-progress-circular>
+  </div>
+
+  <ons-list>
+    <ons-list-item ng-repeat="newsDetail in vm.news" modifier="tappable" ng-click="vm.onSelectNewsDetail(newsDetail)">
+      {{newsDetail.title}}
+    </ons-list-item>
+  </ons-list>
+</ons-page>

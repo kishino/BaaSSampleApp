@@ -1,0 +1,14 @@
+<ons-page ng-controller="NewsDetailController as vm">
+  <ons-toolbar>
+    <div class="left">
+      <ons-back-button>戻る</ons-back-button>
+    </div>
+    <div class="center">{{vm.newsDetail.title}}</div>
+  </ons-toolbar>
+
+  <div style="padding: 16px;">
+    <h1>{{vm.newsDetail.title}}</h1>
+    <p style="text-align: right;">{{vm.newsDetail.release_end_date | date:'yyyy/MM/dd'}}</p>
+    <p>{{vm.newsDetail.description}}</p>
+  </div>
+</ons-page>

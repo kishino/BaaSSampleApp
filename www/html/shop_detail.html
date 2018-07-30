@@ -1,0 +1,40 @@
+<ons-page ng-controller="ShopDetailController as vm">
+  <ons-toolbar>
+    <div class="left">
+      <ons-back-button>戻る</ons-back-button>
+    </div>
+    <div class="center">{{vm.shop.name}}</div>
+  </ons-toolbar>
+
+  <div style="padding: 16px;">
+    <h1>{{vm.shop.name}}</h1>
+    <p style="text-align: right">{{vm.shop.attributes.shop_category_name}}</p>
+    <p>
+      <img width="300" height="200" ng-src="{{vm.shop.attributes.header_image_url}}"/>
+    </p>
+    <ons-row>
+      <ons-col width="120px">営業時間</ons-col>
+      <ons-col>{{vm.shop.attributes.business_start_time}}～{{vm.shop.attributes.business_end_time}}</ons-col>
+    </ons-row>
+    <ons-row>
+      <ons-col width="120px">定休日</ons-col>
+      <ons-col>{{vm.shop.attributes.regular_holiday}}</ons-col>
+    </ons-row>
+    <ons-row>
+      <ons-col width="120px">住所</ons-col>
+      <ons-col>〒{{vm.shop.attributes.postal_code}} {{vm.shop.attributes.prefecture_name}}{{vm.shop.attributes.address1}}{{vm.shop.attributes.address2}}</ons-col>
+    </ons-row>
+    <ons-row>
+      <ons-col width="120px">電話番号</ons-col>
+      <ons-col>{{vm.shop.attributes.tel_no}}</ons-col>
+    </ons-row>
+    <ons-row>
+      <ons-col width="120px">ホームページ</ons-col>
+      <ons-col>{{vm.shop.attributes.homepage}}</ons-col>
+    </ons-row>
+    <ons-row>
+      <ons-col width="120px">営業内容他</ons-col>
+      <ons-col>{{vm.shop.attributes.note}}</ons-col>
+    </ons-row>
+  </div>
+</ons-page>
